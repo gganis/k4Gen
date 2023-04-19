@@ -11,7 +11,7 @@
 DECLARE_COMPONENT(HepMCFileReader)
 
 HepMCFileReader::HepMCFileReader(const std::string& type, const std::string& name, const IInterface* parent)
-: GaudiTool(type, name, parent), m_format("hepmc3"), m_file(nullptr) {
+: GaudiTool(type, name, parent), m_file(nullptr) {
   declareInterface<IHepMCProviderTool>(this);
 }
 

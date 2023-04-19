@@ -24,7 +24,7 @@ public:
 private:
   void close();
   Gaudi::Property<std::string> m_filename{this, "Filename", "", "Name of the HepMC file to read"};
-  Gaudi::Property<std::string> m_format{this, "Format", "", "Format to read: hepmc3 (default), hepmc2, lhef"};
+  Gaudi::Property<std::string> m_format{this, "Format", "hepmc3", "Format to read: hepmc3 (default), hepmc2, lhef"};
   std::unique_ptr<HepMC3::Reader> m_file;
 };
 
