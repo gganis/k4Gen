@@ -25,10 +25,13 @@ StatusCode HepMCFileReader::initialize() {
   // open file using HepMC routines
   info() << "Initialising for format: " << m_format.value() << endmsg;
   if (m_format.value().compare("hepmc2") == 0) {
+     info() << "Initialising m_info with HepMC3::ReaderAsciiHepMC2 " << endmsg;
      m_file = std::make_unique<HepMC3::ReaderAsciiHepMC2>(m_filename.value());
   } else if (m_format.value().compare("lhef") == 0) {
+     info() << "Initialising m_info with HepMC3::ReaderLHEF " << endmsg;
      m_file = std::make_unique<HepMC3::ReaderLHEF>(m_filename.value());
   } else {
+     info() << "Initialising m_info with HepMC3::ReaderAscii " << endmsg;
      m_file = std::make_unique<HepMC3::ReaderAscii>(m_filename.value());
   }
   StatusCode sc = GaudiTool::initialize();
