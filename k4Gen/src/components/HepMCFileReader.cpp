@@ -23,9 +23,9 @@ StatusCode HepMCFileReader::initialize() {
     return StatusCode::FAILURE;
   }
   // open file using HepMC routines
-  if (m_format == "hepmc2") {
+  if (m_format.compare("hepmc2") == 0) {
      m_file = std::make_unique<HepMC3::ReaderAsciiHepMC2>(m_filename.value());
-  } else if (m_format == "lhef") {
+  } else if (m_format.compare("lhef") == 0) {
      m_file = std::make_unique<HepMC3::ReaderLHEF>(m_filename.value());
   } else {
      m_file = std::make_unique<HepMC3::ReaderAscii>(m_filename.value());
