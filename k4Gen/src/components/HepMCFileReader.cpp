@@ -1,5 +1,8 @@
 
 #include "HepMCFileReader.h"
+#include "HepMC3/ReaderAscii.h"
+#include "HepMC3/ReaderAsciiHepMC2.h"
+#include "HepMC3/ReaderLHEF.h"
 
 #include "GaudiKernel/IEventProcessor.h"
 #include "GaudiKernel/IIncidentSvc.h"
@@ -8,7 +11,7 @@
 DECLARE_COMPONENT(HepMCFileReader)
 
 HepMCFileReader::HepMCFileReader(const std::string& type, const std::string& name, const IInterface* parent)
-    : GaudiTool(type, name, parent), m_file(nullptr) {
+: GaudiTool(type, name, parent), m_format("hepmc3"), m_file(nullptr) {
   declareInterface<IHepMCProviderTool>(this);
 }
 
@@ -20,7 +23,13 @@ StatusCode HepMCFileReader::initialize() {
     return StatusCode::FAILURE;
   }
   // open file using HepMC routines
-  m_file = std::make_unique<HepMC3::ReaderAscii>(m_filename.value());
+  if (m_format == "hepmc2") {
+     m_file = std::make_unique<HepMC3::ReaderAsciiHepMC2>(m_filename.value());
+  } else if (m_format == "lhef") {
+     m_file = std::make_unique<HepMC3::ReaderLHEF>(m_filename.value());
+  } else {
+     m_file = std::make_unique<HepMC3::ReaderAscii>(m_filename.value());
+  }
   StatusCode sc = GaudiTool::initialize();
   return sc;
 }
